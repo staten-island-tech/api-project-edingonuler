@@ -1,24 +1,38 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+// async function getData(poke) {
+//   try {
+//     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${poke}`);
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+//     if (response.status != 200) {
+//       throw new Error(response);
+//     } else {
+//       const data = await response.json();
+//       document.getElementById("api-response").textContent = data.name;
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-setupCounter(document.querySelector('#counter'))
+// getData("Squritle");
+
+// cryptocurrency
+// coinlore
+
+// const freeforexapiurl = `https://api.coinlore.net/api/exchanges/`;
+
+async function getData(specific_ask) {
+  try {
+    const response = await fetch(
+      `https://api.coinlore.net/api/exchanges/${specific_ask}`
+    );
+    if (response.status != 200) {
+      throw new Error(response);
+    }
+    const data = await response.json();
+    document.getElementById("api-response").textContent = data.name;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getData("brazil");
