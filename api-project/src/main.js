@@ -19,6 +19,7 @@
 // coinlore
 
 // const freeforexapiurl = `https://api.coinlore.net/api/exchanges/`;
+const apicoingecko = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`;
 
 async function getData(specific_ask) {
   try {
@@ -30,6 +31,9 @@ async function getData(specific_ask) {
     }
     const data = await response.json();
     document.getElementById("api-response").textContent = data.name;
+
+    const a = data.filter((x) => x == "Japan");
+    console.log(a);
   } catch (error) {
     console.error(error);
   }
