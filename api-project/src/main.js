@@ -26,10 +26,12 @@ const apicoinlore = `https://api.coinlore.net/api/tickers/`;
 
 // https://api.coinlore.net/api/ticker/?id=90
 
+// Two Buttons: Price Over And Under $10000 (price_usd)
+
 async function getData(specific_ask) {
   try {
     const response = await fetch(
-      `https://api.coinlore.net/api/ticker/${specific_ask}`
+      `https://api.coinlore.net/api/ticker/?${specific_ask}`
     );
     if (response.status != 200) {
       throw new Error(response);
@@ -37,7 +39,7 @@ async function getData(specific_ask) {
     const data = await response.json();
     document.getElementById("api-response").textContent = data.name;
 
-    const a = data.filter((x) => x == "Japan");
+    // const a = data.filter((x) => x == "Japan");
     console.log(a);
   } catch (error) {
     console.error(error);
