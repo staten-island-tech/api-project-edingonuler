@@ -37,6 +37,10 @@ async function getData(specific_ask) {
       throw new Error(response);
     }
     const data = await response.json();
+    const price_data = getElementById("crypto_container");
+    data.data.array.forEach((item) => {
+      console.log();
+    });
     document.getElementById("api-response").textContent = data.name;
 
     // const a = data.filter((x) => x == "Japan");
@@ -47,3 +51,5 @@ async function getData(specific_ask) {
 }
 
 getData("id=90");
+
+console.log(data.price_usd);
