@@ -54,6 +54,7 @@
 //
 // console.log(data.price_usd);
 
+const price = document.getElementById("price_box");
 const apicoinlore = `https://api.coinlore.net/api/tickers/`;
 const container_coinlore = document.getElementById("crypto_container");
 
@@ -62,11 +63,11 @@ async function getData() {
     const response = await fetch(apicoinlore);
     const data = await response.json();
 
-    const expensiveCoins = data.data.filter(coin =>
-        parseFloat(coin.price_usd) > 10000
+    const expensiveCoins = data.data.filter(
+      (coin) => parseFloat(coin.price_usd) > price
     );
 
-    expensiveCoins.forEach(coin => {
+    expensiveCoins.forEach((coin) => {
       const card = document.createElement("div");
       card.className = "card";
 
