@@ -54,35 +54,48 @@
 //
 // console.log(data.price_usd);
 
-const price = document.getElementById("price_box");
-const apicoinlore = `https://api.coinlore.net/api/tickers/`;
-const container_coinlore = document.getElementById("crypto_container");
 
-async function getData() {
+const apicoinlore = "https://api.coinlore.net/api/tickers/";
+const container = document.getElementById("crypto_container");
+const form = document.getElementById("priceForm");
+const priceInput = document.getElementById("price_box");
+
+form.addEventListener("submit", getData);
+
+async function getData(event) {
+  event.preventDefault();
+
+  const minPrice = Number(priceInput.value);
+  container.innerHTML = "";
+
   try {
     const response = await fetch(apicoinlore);
     const data = await response.json();
 
-    const expensiveCoins = data.data.filter(
-      (coin) => parseFloat(coin.price_usd) > price
+    const filteredCoins = data.data.filter(
+        coin => Number(coin.price_usd) > minPrice
     );
 
-    expensiveCoins.forEach((coin) => {
+    if (filteredCoins.length === 0) {
+      container.innerHTML = "<p style='text-align:center;'>No coins found.</p>";
+      return;
+    }
+
+    filteredCoins.forEach(coin => {
       const card = document.createElement("div");
       card.className = "card";
 
       card.innerHTML = `
         <h2>${coin.name} (${coin.symbol})</h2>
-        <p class="price">$${Number(coin.price_usd).toLocaleString()}</p>
-        <p>Rank: $${coin.rank}</p>
-        <p>Market Cap: ${Number(coin.market_cap_usd).toLocaleString()}</p>
+        <p><strong>Price:</strong> $${Number(coin.price_usd).toLocaleString()}</p>
+        <p><strong>Rank:</strong> ${coin.rank}</p>
+        <p><strong>Market Cap:</strong> $${Number(coin.market_cap_usd).toLocaleString()}</p>
       `;
 
-      container_coinlore.appendChild(card);
+      container.appendChild(card);
     });
   } catch (error) {
     console.error("Error fetching crypto data:", error);
+    container.innerHTML = "<p>Error loading data.</p>";
   }
 }
-
-getData();
